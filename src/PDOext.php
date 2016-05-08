@@ -24,15 +24,19 @@ class PDOext extends \PDO
      * 1. tableName ( Veritabanı içindeki seçilecek tablo örnek :: uyeler )
      * 2. where ( Eğer sorgu yapmak istersek mesela :: uye_id = 1 gibi ikinci parametre olarak sorgu girilir )
     */
-    public function select($tableName,$where = false)
+    public function select($tableName,$where = false,$orderby = false,$descorasc = false)
     {
-        if ($where == true)
+        if ($where == false)
         {
-            $sql = "SELECT * FROM $tableName WHERE $where";
+            $sql = "SELECT * FROM $tableName";
+        }
+        else if ($orderby == true && $descorasc == true)
+        {
+            $sql = "SELECT * FROM $tableName ORDER BY $orderby $descorasc";
         }
         else
         {
-            $sql = "SELECT * FROM $tableName";
+            $sql = "SELECT * FROM $tableName WHERE $where";
         }
         return $this->query($sql);
     }
@@ -54,16 +58,9 @@ class PDOext extends \PDO
      * 1. type ( işlemin tipini belirledik ' )
      * 2. sql  ( Buraya update kodlarımızı gireceğiz. sadece UPDATE yazmıyacağız yoksa sistem buglu çalışıyor )
     */
-    public function update($type = 'update', $sql)
+    public function update($sql,$where)
     {
-        if ($type == 'update')
-        {
-            return $this->query("UPDATE" . $sql);
-        }
-        else
-        {
-            echo '';
-        }
+        return $this->query("UPDATE " . $sql . "WHERE " . $where);
     }
     /*
      * delete sınıfı::
