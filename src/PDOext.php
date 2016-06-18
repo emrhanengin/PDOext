@@ -44,9 +44,10 @@ class PDOext extends \PDO
      * 1. type ( işlemin tipini belirledik ' )
      * 2. sql  ( Buraya insert kodlarımızı gireceğiz. sadece INSERT INTO yazmıyacağız yoksa sistem buglu çalışıyor )
     */
-    public function insert($sql)
+    public function insert($tableName, $set)
     {
-        return $this->query("INSERT INTO " . $sql);
+        $sql = "INSERT INTO " . $tableName . " SET " . $set;
+        return $this->query($sql);
     }
     /*
      * Update sınıfı::
