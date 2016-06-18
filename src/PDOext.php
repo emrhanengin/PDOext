@@ -24,21 +24,18 @@ class PDOext extends \PDO
      * 1. tableName ( Veritabanı içindeki seçilecek tablo örnek :: uyeler )
      * 2. where ( Eğer sorgu yapmak istersek mesela :: uye_id = 1 gibi ikinci parametre olarak sorgu girilir )
     */
-    public function select($tableName,$where = false,$orderby = false,$descorasc = false)
+    public function select($tableName, $type = false, $valueSQL = false)
     {
-        if ($where == false)
+        if ($type == false || $valueSQL == false)
         {
-            $sql = "SELECT * FROM $tableName";
-        }
-        else if ($orderby == true && $descorasc == true)
-        {
-            $sql = "SELECT * FROM $tableName ORDER BY $orderby $descorasc";
+            $sql = "SELECT * FROM " . $tableName;
+            return $this->query($sql);
         }
         else
         {
-            $sql = "SELECT * FROM $tableName WHERE $where";
+            $sql = "SELECT * FROM " . $tableName . " $type " . " $valueSQL";
+            return $this->query($sql);
         }
-        return $this->query($sql);
     }
     /*
      * Insert sınıfı::
