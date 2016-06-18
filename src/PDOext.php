@@ -56,9 +56,10 @@ class PDOext extends \PDO
      * 1. type ( işlemin tipini belirledik ' )
      * 2. sql  ( Buraya update kodlarımızı gireceğiz. sadece UPDATE yazmıyacağız yoksa sistem buglu çalışıyor )
     */
-    public function update($sql,$where)
+    public function update($tableName, $set, $whereSQL)
     {
-        return $this->query("UPDATE " . $sql . "WHERE " . $where);
+        $sql = "UPDATE " . $tableName . " SET " . $set . " WHERE " . $whereSQL;
+        return $this->query($sql);
     }
     /*
      * delete sınıfı::
